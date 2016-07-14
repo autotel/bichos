@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>bichos-neural network approach</title>
+  </head>
+  <body style="margin:0; padding:0; overflow:hidden">
+    <div style="margin:0; padding:0" id="twocanvas"></div>
+  </body>
+  <script src="libs/two.min.js"></script>
+  <script src="js/Bicho.js"></script>
+  <script>
+
+
+  // Make an instance of two and place it on the page.
+var elem = document.getElementById('twocanvas');
+var canvas={
+  w:window.innerWidth,
+  h:window.innerHeight,
+  binds:[],
+  bind:function(call){
+    canvas.binds.push (call);
+  }
+}
+var params = { width: canvas.w, height: canvas.h };
+var two = new Two(params).appendTo(elem);
+var foods=[];
+for(var a=0; a<100; a++){
+  foods[a]=new Food(Math.random()*40);
+}
+var bugs=[];
+for(var a=0; a<50; a++){
+  bugs[a]=new Bug();
+}
+
+two.bind("update",function(frm){
+  for(var act in canvas.binds){
+    if(typeof(canvas.binds[act].frame)=='function'){
+      canvas.binds[act].frame();
+    }else{
+      console.log(canvas.binds[act]);
+    }
+
+  }
+})
+two.play();
+
+
+
+
+
+  </script>
+  </body>
+</html>
