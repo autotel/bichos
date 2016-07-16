@@ -29,14 +29,16 @@ Bug=function(properties){
     food:new Axon({tresh:0,factor:0.002})
   }
   this.actuatorAxons={
-    setSpeed:new Axon({tresh:0}),
-    turn:new Axon({tresh:1.3})
+    setSpeed:new Axon({tresh:0.4}),
+    turn:new Axon({tresh:1.3,factor:0.01}),
+    mythose:new Axon({tresh:1.3,factor:0.5})
   }
   //connect sensors and actuators to the mononeuronal brain
   this.brain[0].inputs.push(this.sensorAxons.onFood);
   this.brain[0].inputs.push(this.sensorAxons.food);
   this.brain[0].outputs.push(this.actuatorAxons.setSpeed);
   this.brain[0].outputs.push(this.actuatorAxons.turn);
+  this.brain[0].outputs.push(this.actuatorAxons.mythose);
 
   var pi=Math.PI;
   this.surface=this.properties.size*this.properties.size*pi;
@@ -77,6 +79,7 @@ Bug.prototype.mythose=function(val){
   var newbug=new Bug(this.properties);
   newbug.food=this.food*val;
   this.food-=this.food*val;
+  newbug.reposition(this.pos());
 }
 Bug.prototype.sense=function(){
   for(var sensor in this.sensorAxons){
