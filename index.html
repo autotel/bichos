@@ -5,24 +5,33 @@
     <title>bichos-neural network approach</title>
     <style>
     #infodiv.hidden{
-      right:0px;
-      transition:0.8s;
-    }
-    #infodiv{
       right:-180px;
       transition:0.8s;
     }
+    #infodiv{
+      right:0px;
+      transition:0.8s;
+    }
+
+
+
+
     </style>
   </head>
   <body style="margin:0; padding:0; overflow:hidden">
     <div style="margin:0; padding:0" id="twocanvas"></div>
-    <div id="infodiv" style="position:fixed; width:180px; top:0px">
+    <div id="infodiv" class="hidden" style="position:fixed; width:180px; top:0px; z-index:2">
       infodiv
     </div>
+    <svg width="180" height="600" style="position:fixed; top:40px; z-index:3"></svg>
   </body>
   <script src="libs/two.min.js"></script>
+  <script src="libs/d3.min.js"></script>
+  <script src="libs/snippets.js"></script>
   <script src="js/Bicho.js"></script>
+  <script src="js/neuralDisplay.js"></script>
   <script src="js/neuron.js"></script>
+  <script src="libs/mouse.js"></script>
   <script src="js/breeder.js"></script>
   <script>
 

@@ -2,6 +2,7 @@
 //reposition=fuinction
 //Bug.prototepy.reposton=repisition
 Bug=function(properties){
+  this.name=randomString(Math.random()*7+3);
   this.alive=true;
   this.onFood=0;
   this.properties=properties||{
@@ -39,10 +40,9 @@ Bug=function(properties){
   this.brain[0].outputs.push(this.actuatorAxons.setSpeed);
   this.brain[0].outputs.push(this.actuatorAxons.turn);
   this.brain[0].outputs.push(this.actuatorAxons.mythose);
-
   var pi=Math.PI;
   this.surface=this.properties.size*this.properties.size*pi;
-  console.log(this.surface);
+  // console.log(this.surface);
   this.angl=Math.random()*pi;
   this.food=0;
   this.sprite=new Two.Group();
@@ -63,6 +63,37 @@ Bug=function(properties){
   // this.pos=this.sprite.translation;
   bugs.push(this);
 };
+Bug.prototype.mouseSelect=function(){
+  document.getElementById("infodiv").innerHTML=this.name;
+  document.getElementById("infodiv").innerHTML+='';
+  this.selected=true;
+  // {inputs:this.sensorAxons,outputs:this.actuatorAxons,processors:this.brain}
+  neuralGraph={nodes:[],links:[]}
+/*------------del------------*/
+  // this.brain=[
+  //   new Neuron()
+  // ];
+  // //connect this object's vars to axons. data binding is on sense function
+  // this.sensorAxons={
+  //   onFood:new Axon({tresh:0,factor:-0.02}),
+  //   food:new Axon({tresh:0,factor:0.002})
+  // }
+  // this.actuatorAxons={
+  //   setSpeed:new Axon({tresh:0.4}),
+  //   turn:new Axon({tresh:1.3,factor:0.01}),
+  //   mythose:new Axon({tresh:1.3,factor:0.5})
+  // }
+  // this.brain[0].inputs.push(this.sensorAxons.food);
+  // this.brain[0].outputs.push(this.actuatorAxons.setSpeed);
+/*-------------------------*/
+  // for(var a in this.sensorAxons){
+  //   neuralGraph.nodes.push({
+  //     id:a
+  //   });
+  // }
+
+  // neuralDisplay();
+}
 Bug.prototype.pos=function(){
   return this.sprite.translation;
 }
@@ -96,7 +127,7 @@ Bug.prototype.act=function(){
     //maybe these should be in the axon definition and not spread everywhere...
     var thisNerve=this.actuatorAxons[nerve];
     if(thisNerve.isOverTresh()){
-      console.log("nerve "+thisNerve.outValue());
+      // console.log("nerve "+thisNerve.outValue());
       if(this.hasOwnProperty(nerve)){
         this[nerve]=thisNerve.outValue();
       }else if(typeof this[nerve]=='function'){
